@@ -1,0 +1,23 @@
+.last.container {
+    margin-bottom: 300px !important;
+}
+h1.ui.center.header {
+  margin-top: 2em;
+  font-size: 3em;
+  margin-bottom: 2em;
+}
+h2.ui.center.header {
+  margin: 4em 0em 2em;
+}
+h3.ui.center.header {
+  margin-top: 2em;
+  padding: 2em 0em;
+}
+
+.divide {
+  margin-top: 3em;
+}
+
+.overline {
+  text-decoration: overline;
+}
