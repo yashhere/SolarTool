@@ -1,23 +1,39 @@
+@import url(https://fonts.googleapis.com/css?family=EB+Garamond|Cardo:400italic);
+html {
+    text-align: center;
+    font-size: 1.12em;
+    font-family: 'EB Garamond', 'Cardo', sans-serif !important;
+}
+body {
+    background-color: #F9F9F9;
+}
+h1 {
+    font-family: 'Cardo' !important;
+}
 .last.container {
     margin-bottom: 300px !important;
 }
 h1.ui.center.header {
-  margin-top: 2em;
-  font-size: 3em;
-  margin-bottom: 2em;
+    margin-top: 2em;
+    font-size: 3em;
+    margin-bottom: 2em;
 }
 h2.ui.center.header {
-  margin: 4em 0em 2em;
+    margin: 4em 0em 2em;
 }
 h3.ui.center.header {
-  margin-top: 2em;
-  padding: 2em 0em;
+    margin-top: 2em;
+    padding: 2em 0em;
 }
-
 .divide {
-  margin-top: 3em;
+    margin-top: 3em;
 }
-
 .overline {
-  text-decoration: overline;
+    text-decoration: overline;
+}
+label {
+    font-size: 1.4em;
+}
+.results {
+    margin-bottom: 4em;
 }

@@ -7,16 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <!-- Site Properties -->
-    <title>Responsive Elements - Semantic</title>
-    <script src="./dist/jquery.min.js"></script>
+    <title>Solar Radiation Calculator</title>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="./dist/semantic.css">
     <link rel="stylesheet" type="text/css" href="./dist/container.css">
-    <script src="./dist/semantic.js"></script>
     <link rel="stylesheet" type="text/css" href="./dist/form.css">
-    <script src="./dist/form.js"></script>
     <link rel="stylesheet" type="text/css" href="./dist/dropdown.css">
-    <script src="./dist/dropdown.js"></script>
     <link rel="stylesheet" type="text/css" href="./dist/input.css">
     <link rel="stylesheet" type="text/css" href="./dist/table.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/icon.css" />
@@ -24,17 +20,18 @@
 </head>
 
 <body>
-    <h1 class="ui center aligned header">Solar Radiation Intensity Calculator</h1>
+    <h1 class="ui center aligned header typeit">Solar Radiation Calculator</h1>
     <div class="ui container">
         <div class="ui three column grid centered container">
-            <form class="ui form">
+            <div class="ui form">
                 <div class="field">
                     <div class="three fields">
                         <div class="field">
                             <label>Location</label>
-                            <select class="ui dropdown item">
+                            <select class="ui dropdown item" id="placelist">
                                 <option value="0">Choose your location</option>
-                                <option value="1">Ahmedabad</option>
+                                <option value="1">Detect my location</option>
+                                <option value="18">Ahmedabad</option>
                                 <option value="2">Bangalore</option>
                                 <option value="3">Bhavnagar</option>
                                 <option value="4">Chennai</option>
@@ -51,8 +48,14 @@
                                 <option value="15">Srinagar</option>
                                 <option value="16">Trivandrum</option>
                                 <option value="17">Vishakhapatnam</option>
-                                <option value="18">Other</option>
+                                <option value="19">Other</option>
                             </select>
+                        </div>
+                        <div class="field opthidden" style="display: none">
+                            <label>Custom Place</label>
+                            <div class="ui input">
+                                <input type="text" id="place_custom" disabled placeholder="Enter location">
+                            </div>
                         </div>
                         <div class="field">
                             <label>Day of the year</label>
@@ -67,8 +70,8 @@
                             <label>Average Sunshine Hours</label>
                             <div class="ui">
                                 <div class="ui input left icon">
-                                    <i class="asterisk icon"></i>
-                                    <input type="number" default="8" placeholder="Average Sunshine Hours">
+                                    <i class="sun icon"></i>
+                                    <input type="number" value="8" id="nbar" placeholder="Average Sunshine Hours">
                                 </div>
                             </div>
                         </div>
@@ -78,49 +81,46 @@
                     <div class="field">
                         <label>Latitude</label>
                         <div class="ui input">
-                            <input type="text" placeholder="Longitude">
+                            <input type="text" value="00.000" id="lat" placeholder="Latitude">
                         </div>
                     </div>
                     <div class="field">
                         <label>Longitude</label>
                         <div class="ui input">
-                            <input type="text" placeholder="Latitude">
+                            <input type="text" value="00.000" id="long" placeholder="Longitude">
                         </div>
                     </div>
                     <div class="field">
                         <label>a</label>
                         <div class="ui input">
-                            <input type="text" placeholder="Value of a">
+                            <input type="text" value="0.00" id="a" placeholder="Value of a">
                         </div>
                     </div>
                     <div class="field">
                         <label>b</label>
                         <div class="ui input">
-                            <input type="text" placeholder="Value of b">
+                            <input type="text" value="0.00" id="b" placeholder="Value of b">
                         </div>
                     </div>
                     <div class="field">
                         <label>n</label>
                         <div class="ui input">
-                            <input type="text" placeholder="Value of n">
+                            <input type="text" id="n" value="0" placeholder="Value of n">
                         </div>
                     </div>
                 </div>
-                <div class="ui center aligned">
-
-                    <button type="submit" class="ui button">
-                        <i class="telegram icon"></i> Submit
+                <div class="ui center inverted aligned">
+                    <button type="submit" id="submit" class="ui teal positive large button">
+                        <i class="calculator icon"></i> Submit
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
-
         <div class="ui section divider"></div>
-
-        <div class="ui three column grid centered container">
-            <h2 class="ui center aligned">Results</h2>
-            <table class="ui striped center aligned celled table">
-                <thead>
+        <div class="ui centered container results">
+            <h2 class="ui center aligned"><i class="list icon"></i>Results</h2>
+            <table class="ui center aligned celled large green table">
+                <thead class="ui red">
                     <tr>
                         <th>Parameter</th>
                         <th>Description</th>
@@ -142,7 +142,6 @@
                         <td><span class="overline">N</span></td>
                         <td>Monthly average of maximum possible daily hours of sunshine</td>
                         <td><span id="capsnbar"> </span></td>
-
                     </tr>
                     <tr>
                         <td><span class="overline">H</span><sub>o</sub></td>
@@ -168,13 +167,14 @@
             </table>
         </div>
     </div>
-    <script type="text/javascript">
-        $('.ui.dropdown').dropdown();
-        $('#calender').calendar({
-            type: 'date',
-            today: true,
-        });
-    </script>
+    <script src="./dist/jquery.min.js"></script>
+    <script src="./dist/semantic.js"></script>
+    <script src="./dist/form.js"></script>
+    <script src="./dist/dropdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.typeit/4.4.0/typeit.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkNHiH3G1N4EslsN_hJJlAMEfL7JfKXyQ" type="text/javascript"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
